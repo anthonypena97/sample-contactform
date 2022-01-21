@@ -1,0 +1,13 @@
+import React from 'react';
+
+function Header() {
+
+  return (
+
+    <h1 className="header">Sample Contact Form</h1>
+
+  )
+
+}
+
+export default Header;
