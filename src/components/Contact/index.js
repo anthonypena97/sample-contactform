@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { validateEmail, validateDate } from '../../utils/helpers';
 
 function Contact() {
@@ -29,8 +30,10 @@ function Contact() {
         errorMessage.birthDate === '' &&
         errorMessage.emailConsent === ''
       ) {
-        console.log('Submit Form', formState);
+        // ====================================== successful submission ===========================================
         setErrorMessage({ ...errorMessage, result: 'Success!' });
+        postAPI(formState);
+
       } else {
         console.log(errorMessage);
         setErrorMessage({ ...errorMessage, result: 'Unable to send. Check fields.' });
@@ -120,6 +123,19 @@ function Contact() {
     setFormState({ ...formState, name: '', email: '', birthDate: '', emailConsent: false })
 
     setErrorMessage('');
+
+  }
+
+  const postAPI = (data) => {
+    console.log(data);
+
+    axios.post('https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/users', data)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   }
 
