@@ -1,6 +1,6 @@
 # Sample Contact Form
 
-### A fully functioning contact form written with React.js
+### Fully Functioning Contact Form Written with React.js
 
 ![MIT License badge](https://img.shields.io/badge/license-MIT_License-green)
 
