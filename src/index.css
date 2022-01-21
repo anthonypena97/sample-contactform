@@ -114,7 +114,36 @@ input {
 }
 
 @media only screen and (max-width: 600px) {
-  body {
-    background-color: lightblue;
+  .contactForm {
+    padding-top: 3vh;
+    padding-left: 20vw;
+    padding-right: 20vw;
+  }
+
+  .contactTitle {
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .contactLabel {
+    font-size: 5vw;
+  }
+
+  .errorMessage {
+    font-size: 3vw;
+  }
+
+  .checkboxInput {
+    padding-top: 20px;
+  }
+  .checkBoxLabel {
+    font-size: 3vw;
+  }
+
+  .errorMessage {
+    height: 3vh;
   }
 }
