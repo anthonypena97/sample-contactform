@@ -4,12 +4,17 @@ import { validateEmail, validateDate } from '../../utils/helpers';
 function Contact() {
 
   const [formState, setFormState] = useState({ name: '', email: '', birthDate: '', emailConsent: false });
-
   const [errorMessage, setErrorMessage] = useState('');
+
   const { name, email, birthDate, emailConsent } = formState;
 
   const handleSubmit = (e) => {
+    // console.log(e);
     e.preventDefault();
+
+    if (e.target.name === 'clear') {
+      console.log('clear')
+    }
 
     // checks to make sure there are no empty fields
     if (
@@ -35,7 +40,24 @@ function Contact() {
 
   };
 
+  // function for updating values as user types
   const handleChange = (e) => {
+    const field = e.target.name;
+
+    if (field === 'emailConsent') {
+
+      setFormState({ ...formState, [field]: e.target.checked })
+
+    } else {
+
+      setFormState({ ...formState, [field]: e.target.value })
+
+    }
+
+  }
+
+  // function for validating input fields
+  const handleValidation = (e) => {
     const field = e.target.name;
     // email validation
     if (field === 'email') {
@@ -79,20 +101,21 @@ function Contact() {
       }
     }
 
-
-    console.log('value', e.target.value);
-
   };
 
-  const clearForm = () => {
+  // clears input field of current values
+  const clearFormData = (e) => {
 
-    console.log(formState);
+    setFormState({ ...formState, name: '', email: '', birthDate: '', emailConsent: false })
+
+    setErrorMessage('');
 
   }
 
+  // html for component
   return (
 
-    <form id="contact-form" onSubmit={handleSubmit} className="contactForm" >
+    <div id="contact-form" onSubmit={handleSubmit} className="contactForm" >
 
       <div>
         <h1 data-testid="h1tag" className="contactTitle">Contact Us</h1>
@@ -100,21 +123,21 @@ function Contact() {
 
       <div className="contactItem">
         <label htmlFor="name">Name:</label>
-        <input className="contactInput" type="text" name="name" defaultValue={name} onBlur={handleChange} />
+        <input className="contactInput" type="text" name="name" value={name} onChange={handleChange} onBlur={handleValidation} />
       </div>
 
       <div className="contactItem">
         <label htmlFor="email">Email:</label>
-        <input type="email" name="email" defaultValue={email} onBlur={handleChange} />
+        <input type="email" name="email" value={email} onChange={handleChange} onBlur={handleValidation} />
       </div>
 
       <div className="contactItem">
         <label htmlFor="message">Birth Date:</label>
-        <input name="birthDate" rows="5" defaultValue={birthDate} onBlur={handleChange} />
+        <input name="birthDate" rows="5" value={birthDate} onChange={handleChange} onBlur={handleValidation} />
       </div>
 
       <div className="contactItem">
-        <input type="checkbox" name="emailConsent" defaultValue={emailConsent} onClick={handleChange} />
+        <input type="checkbox" name="emailConsent" value={emailConsent} checked={emailConsent} onChange={handleChange} onBlur={handleValidation} />
         <label> I agree to be contacted via email</label>
       </div>
 
@@ -127,17 +150,17 @@ function Contact() {
       <div id="formButtons">
 
         <div className="contactItem submitContact">
-          <button data-testid="button" onClick={clearForm}>Clear</button>
+          <button data-testid="button" onClick={clearFormData}>Clear</button>
         </div>
 
         <div className="contactItem submitContact">
-          <button data-testid="button" type="submit">Submit</button>
+          <button data-testid="button" type="submit" onClick={handleSubmit}>Submit</button>
         </div>
 
       </div>
 
 
-    </form>
+    </div>
 
   )
 
