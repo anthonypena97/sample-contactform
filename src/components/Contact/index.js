@@ -33,6 +33,8 @@ function Contact() {
         // ====================================== successful submission ===========================================
         setErrorMessage({ ...errorMessage, result: 'Success!' });
         postAPI(formState);
+        // not calling the clear form data function as to not break functionality of clear button from being a clear all
+        setFormState({ ...formState, name: '', email: '', birthDate: '', emailConsent: false })
 
       } else {
         console.log(errorMessage);
@@ -122,7 +124,7 @@ function Contact() {
 
     setFormState({ ...formState, name: '', email: '', birthDate: '', emailConsent: false })
 
-    setErrorMessage('');
+    setErrorMessage({ name: '', email: '', birthDate: '', emailConsent: '', result: '' });
 
   }
 
