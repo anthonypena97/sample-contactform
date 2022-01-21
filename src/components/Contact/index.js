@@ -4,17 +4,16 @@ import { validateEmail, validateDate } from '../../utils/helpers';
 function Contact() {
 
   const [formState, setFormState] = useState({ name: '', email: '', birthDate: '', emailConsent: false });
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState({ name: '', email: '', birthDate: '', emailConsent: '', result: '' });
 
   const { name, email, birthDate, emailConsent } = formState;
 
   const handleSubmit = (e) => {
-    // console.log(e);
     e.preventDefault();
 
-    if (e.target.name === 'clear') {
-      console.log('clear')
-    }
+    handleValidation(e);
+
+    console.log(formState)
 
     // checks to make sure there are no empty fields
     if (
@@ -23,18 +22,28 @@ function Contact() {
       !formState.birthDate === '' ||
       !formState.emailConsent === false
     ) {
-
       // if no empty fields, checks if all inputs are valid
-      if (!errorMessage) {
+      if (
+        errorMessage.name === '' &&
+        errorMessage.email === '' &&
+        errorMessage.birthDate === '' &&
+        errorMessage.emailConsent === ''
+      ) {
         console.log('Submit Form', formState);
-        setErrorMessage('Success!');
+        setErrorMessage({ ...errorMessage, result: 'Success!' });
       } else {
-        setErrorMessage('Unable to send message. Check fields');
+        console.log(errorMessage);
+        setErrorMessage({ ...errorMessage, result: 'Unable to send. Check fields.' });
       }
 
     } else {
 
-      setErrorMessage('Unable to send submit. Empty Field.');
+      if (formState.emailConsent === false) {
+        setErrorMessage({ ...errorMessage, result: 'Must check box to be contacted.' });
+      } else {
+
+        setErrorMessage({ ...errorMessage, result: 'Unable to send. Empty Field.' });
+      }
 
     }
 
@@ -45,6 +54,8 @@ function Contact() {
     const field = e.target.name;
 
     if (field === 'emailConsent') {
+
+      console.log('test')
 
       setFormState({ ...formState, [field]: e.target.checked })
 
@@ -63,9 +74,9 @@ function Contact() {
     if (field === 'email') {
       const isValid = validateEmail(e.target.value);
       if (!isValid) {
-        setErrorMessage('Your email is invalid.');
+        setErrorMessage({ ...errorMessage, [field]: 'You must type a valid email.' });
       } else {
-        setErrorMessage('');
+        setErrorMessage({ ...errorMessage, [field]: '' });
         setFormState({ ...formState, [field]: e.target.value });
       }
 
@@ -74,9 +85,9 @@ function Contact() {
     if (field === 'emailConsent') {
       const isValid = e.target.checked === true;
       if (!isValid) {
-        setErrorMessage('Email consent must be checked.')
+        setErrorMessage({ ...errorMessage, [field]: 'Email consent must be given' });
       } else {
-        setErrorMessage('');
+        setErrorMessage({ ...errorMessage, [field]: '' });
         setFormState({ ...formState, [field]: e.target.checked });
       }
     }
@@ -84,9 +95,9 @@ function Contact() {
     if (field === 'name') {
       const isValid = e.target.value.length > 1;
       if (!isValid) {
-        setErrorMessage('Name cannot be blank')
+        setErrorMessage({ ...errorMessage, [field]: 'Name cannot be blank.' });
       } else {
-        setErrorMessage('');
+        setErrorMessage({ ...errorMessage, [field]: '' });
         setFormState({ ...formState, [field]: e.target.value });
       }
     }
@@ -94,9 +105,9 @@ function Contact() {
     if (field === 'birthDate') {
       const isValid = validateDate(e.target.value);
       if (!isValid) {
-        setErrorMessage('Please follow yyyy-mm-dd format')
+        setErrorMessage({ ...errorMessage, [field]: 'Please follow yyyy-mm-dd format' });
       } else {
-        setErrorMessage('');
+        setErrorMessage({ ...errorMessage, [field]: '' });
         setFormState({ ...formState, [field]: e.target.value });
       }
     }
@@ -117,25 +128,50 @@ function Contact() {
 
     <div id="contact-form" onSubmit={handleSubmit} className="contactForm" >
 
+      {/* ======================== title ==================== */}
       <div>
         <h1 data-testid="h1tag" className="contactTitle">Contact Us</h1>
       </div>
 
+      {/* ======================== inputs ==================== */}
+
+      {/* ======================================== name =================================== */}
       <div className="contactItem">
         <label htmlFor="name">Name:</label>
         <input className="contactInput" type="text" name="name" value={name} onChange={handleChange} onBlur={handleValidation} />
       </div>
 
+      {errorMessage && (
+        <div>
+          <p className="error-text">{errorMessage.name}</p>
+        </div>
+      )}
+
+      {/* ======================================= email =================================== */}
       <div className="contactItem">
         <label htmlFor="email">Email:</label>
         <input type="email" name="email" value={email} onChange={handleChange} onBlur={handleValidation} />
       </div>
 
+      {errorMessage && (
+        <div>
+          <p className="error-text">{errorMessage.email}</p>
+        </div>
+      )}
+
+      {/* ====================================== birth date =============================== */}
       <div className="contactItem">
         <label htmlFor="message">Birth Date:</label>
         <input name="birthDate" rows="5" value={birthDate} onChange={handleChange} onBlur={handleValidation} />
       </div>
 
+      {errorMessage && (
+        <div>
+          <p className="error-text">{errorMessage.birthDate}</p>
+        </div>
+      )}
+
+      {/* ================================== email consent ================================= */}
       <div className="contactItem">
         <input type="checkbox" name="emailConsent" value={emailConsent} checked={emailConsent} onChange={handleChange} onBlur={handleValidation} />
         <label> I agree to be contacted via email</label>
@@ -143,10 +179,11 @@ function Contact() {
 
       {errorMessage && (
         <div>
-          <p className="error-text">{errorMessage}</p>
+          <p className="error-text">{errorMessage.emailConsent}</p>
         </div>
       )}
 
+      {/* ======================== buttons ==================== */}
       <div id="formButtons">
 
         <div className="contactItem submitContact">
@@ -156,6 +193,12 @@ function Contact() {
         <div className="contactItem submitContact">
           <button data-testid="button" type="submit" onClick={handleSubmit}>Submit</button>
         </div>
+
+        {errorMessage && (
+          <div>
+            <p className="error-text">{errorMessage.result}</p>
+          </div>
+        )}
 
       </div>
 
