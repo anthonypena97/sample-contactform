@@ -12,7 +12,7 @@
 
 Application written with Javascript, using [React.js](https://reactjs.org/)
 
-[Axios}(https://www.npmjs.com/package/axios) is used for making API calls
+[Axios](https://www.npmjs.com/package/axios) is used for making API calls
 [React-Boostrap](https://github.com/markuslerner/THREE.Interactive) is used for additional styling.
 [gh-pages](https://www.npmjs.com/package/gh-pages) is used for deployment
 
@@ -30,7 +30,6 @@ This page is designed for both Desktop and Mobile user experience.
 
 - [Usage](#usage)
 - [Installation](#installation)
-- [Notes](#notes)
 - [License](#license)
 - [Version History](#version)
 - [Contributing](#contributing)
