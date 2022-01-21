@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import { validateEmail, validateDate } from '../../utils/helpers';
 
@@ -33,6 +36,8 @@ function Contact() {
         // ====================================== successful submission ===========================================
         setErrorMessage({ ...errorMessage, result: 'Success!' });
         postAPI(formState);
+        // not calling the clear form data function as to not break functionality of clear button from being a clear all
+        setFormState({ ...formState, name: '', email: '', birthDate: '', emailConsent: false })
 
       } else {
         console.log(errorMessage);
@@ -57,8 +62,6 @@ function Contact() {
     const field = e.target.name;
 
     if (field === 'emailConsent') {
-
-      console.log('test')
 
       setFormState({ ...formState, [field]: e.target.checked })
 
@@ -108,7 +111,7 @@ function Contact() {
     if (field === 'birthDate') {
       const isValid = validateDate(e.target.value);
       if (!isValid) {
-        setErrorMessage({ ...errorMessage, [field]: 'Please follow yyyy-mm-dd format' });
+        setErrorMessage({ ...errorMessage, [field]: 'Follow yyyy-mm-dd format' });
       } else {
         setErrorMessage({ ...errorMessage, [field]: '' });
         setFormState({ ...formState, [field]: e.target.value });
@@ -122,7 +125,7 @@ function Contact() {
 
     setFormState({ ...formState, name: '', email: '', birthDate: '', emailConsent: false })
 
-    setErrorMessage('');
+    setErrorMessage({ name: '', email: '', birthDate: '', emailConsent: '', result: '' });
 
   }
 
@@ -139,7 +142,7 @@ function Contact() {
 
   }
 
-  // html for component
+  // =========================================== html for component ============================================
   return (
 
     <div id="contact-form" onSubmit={handleSubmit} className="contactForm" >
@@ -152,74 +155,128 @@ function Contact() {
       {/* ======================== inputs ==================== */}
 
       {/* ======================================== name =================================== */}
-      <div className="contactItem">
-        <label htmlFor="name">Name:</label>
-        <input className="contactInput" type="text" name="name" value={name} onChange={handleChange} onBlur={handleValidation} />
-      </div>
 
-      {errorMessage && (
-        <div>
-          <p className="error-text">{errorMessage.name}</p>
-        </div>
-      )}
+      <Container>
+        <Row className="contactRow">
+          <Col variant="input" className="contactInput" style={{ 'padding': '1px' }}>
+
+            <label className="contactLabel" htmlFor="name">Name:</label>
+            <input type="text" name="name" value={name} onChange={handleChange} onBlur={handleValidation} />
+
+          </Col>
+
+          <Col style={{ 'padding': '1px', 'marginTop': 'auto', 'marginBottom': 'auto' }} >
+
+            {errorMessage && (
+              <div>
+                <p className="errorMessage">{errorMessage.name}</p>
+              </div>
+            )}
+
+          </Col>
+        </Row>
+      </Container>
+
 
       {/* ======================================= email =================================== */}
-      <div className="contactItem">
-        <label htmlFor="email">Email:</label>
-        <input type="email" name="email" value={email} onChange={handleChange} onBlur={handleValidation} />
-      </div>
 
-      {errorMessage && (
-        <div>
-          <p className="error-text">{errorMessage.email}</p>
-        </div>
-      )}
+      <Container>
+        <Row className="contactRow">
+          <Col variant="input" className="contactInput" style={{ 'padding': '1px' }}>
+
+            <label className="contactLabel" htmlFor="name">Email:</label>
+            <input type="email" name="email" value={email} onChange={handleChange} onBlur={handleValidation} />
+
+          </Col>
+
+          <Col style={{ 'padding': '1px', 'marginTop': 'auto', 'marginBottom': 'auto' }} >
+
+            {errorMessage && (
+              <div>
+                <p className="errorMessage">{errorMessage.email}</p>
+              </div>
+            )}
+
+          </Col>
+        </Row>
+      </Container>
 
       {/* ====================================== birth date =============================== */}
-      <div className="contactItem">
-        <label htmlFor="message">Birth Date:</label>
-        <input name="birthDate" rows="5" value={birthDate} onChange={handleChange} onBlur={handleValidation} />
-      </div>
 
-      {errorMessage && (
-        <div>
-          <p className="error-text">{errorMessage.birthDate}</p>
-        </div>
-      )}
+      <Container>
+        <Row className="contactRow">
+          <Col variant="input" className="contactInput" style={{ 'padding': '1px' }}>
+
+            <label className="contactLabel" htmlFor="name">Birth Date:</label>
+            <input name="birthDate" rows="5" value={birthDate} onChange={handleChange} onBlur={handleValidation} />
+
+          </Col>
+
+          <Col style={{ 'padding': '1px', 'marginTop': 'auto', 'marginBottom': 'auto' }} >
+
+            {errorMessage && (
+              <div>
+                <p className="errorMessage">{errorMessage.birthDate}</p>
+              </div>
+            )}
+
+          </Col>
+        </Row>
+      </Container>
 
       {/* ================================== email consent ================================= */}
-      <div className="contactItem">
-        <input type="checkbox" name="emailConsent" value={emailConsent} checked={emailConsent} onChange={handleChange} onBlur={handleValidation} />
-        <label> I agree to be contacted via email</label>
-      </div>
+      <Container>
+        <Row >
+          <Col style={{ 'padding': '1px' }}>
+            <div className="checkboxInput">
+              <input className="checkBox" type="checkbox" name="emailConsent" value={emailConsent} checked={emailConsent} onChange={handleChange} onBlur={handleValidation} />
+              <label className="checkBoxLabel"> I agree to be contacted via email</label>
+            </div>
 
-      {errorMessage && (
-        <div>
-          <p className="error-text">{errorMessage.emailConsent}</p>
-        </div>
-      )}
+            {
+              errorMessage && (
+                <div>
+                  <p className="errorCheck">{errorMessage.emailConsent}</p>
+                </div>
+              )
+            }
+          </Col>
+
+        </Row>
+      </Container>
+
 
       {/* ======================== buttons ==================== */}
-      <div id="formButtons">
+      <Container>
+        <Row>
 
-        <div className="contactItem submitContact">
-          <button data-testid="button" onClick={clearFormData}>Clear</button>
-        </div>
+          <Col>
+            <div className="contactItem submitContact">
+              <button data-testid="button" onClick={clearFormData}>Clear</button>
+            </div>
+          </Col>
 
-        <div className="contactItem submitContact">
-          <button data-testid="button" type="submit" onClick={handleSubmit}>Submit</button>
-        </div>
+          <Col>
+            <div className="contactItem submitContact">
+              <button data-testid="button" type="submit" onClick={handleSubmit}>Submit</button>
+            </div>
+          </Col>
 
-        {errorMessage && (
-          <div>
-            <p className="error-text">{errorMessage.result}</p>
-          </div>
-        )}
+        </Row>
+        <Row>
 
-      </div>
+          <Col>
+            {errorMessage && (
+              <div>
+                <p className="resultText">{errorMessage.result}</p>
+              </div>
+            )}
+          </Col>
 
+        </Row>
+      </Container>
 
-    </div>
+    </div >
 
   )
 

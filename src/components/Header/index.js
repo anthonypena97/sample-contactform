@@ -4,7 +4,7 @@ function Header() {
 
   return (
 
-    <h1>Sample Contact Form</h1>
+    <h1 className="header">Sample Contact Form</h1>
 
   )
 
