@@ -26,7 +26,6 @@ function Contact() {
       !formState.birthDate === '' ||
       !formState.emailConsent === false
     ) {
-      console.log('test')
       // if no empty fields, checks if all inputs are valid
       if (
         formState.name === '' ||
@@ -35,7 +34,6 @@ function Contact() {
       ) {
         setErrorMessage({ ...errorMessage, result: 'Unable to send. Empty Field.' });
         return;
-
       }
 
       if (
@@ -143,13 +141,13 @@ function Contact() {
   const postAPI = (data) => {
     console.log(data);
 
-    axios.post('https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/users', data)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // axios.post('https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/users', data)
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
 
   }
 
