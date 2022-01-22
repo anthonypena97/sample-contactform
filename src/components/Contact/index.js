@@ -21,9 +21,9 @@ function Contact() {
 
     // checks to make sure there are no empty fields
     if (
-      !formState.name === '' ||
-      !formState.email === '' ||
-      !formState.birthDate === '' ||
+      !formState.name === '' &&
+      !formState.email === '' &&
+      !formState.birthDate === '' &&
       !formState.emailConsent === false
     ) {
       // if no empty fields, checks if all inputs are valid
