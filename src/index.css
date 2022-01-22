@@ -113,7 +113,7 @@ input {
   background-color: rgb(218, 206, 247);
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
   .contactForm {
     padding-top: 3vh;
     padding-left: 20vw;
@@ -145,5 +145,25 @@ input {
 
   .errorMessage {
     height: 3vh;
+  }
+}
+
+@media screen and (min-device-width: 600px) and (max-device-width: 750px) {
+  .contactForm {
+    padding: 0;
+  }
+
+  .checkBoxLabel {
+    font-size: 2vw;
+  }
+
+  .checkBox {
+    height: 15px;
+    width: 15px;
+  }
+
+  .errorCheck {
+    padding: 2px;
+    font-size: 2vw;
   }
 }
