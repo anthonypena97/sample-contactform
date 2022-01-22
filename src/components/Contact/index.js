@@ -132,13 +132,13 @@ function Contact() {
   const postAPI = (data) => {
     console.log(data);
 
-    // axios.post('https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/users', data)
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    axios.post('https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/users', data)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   }
 
