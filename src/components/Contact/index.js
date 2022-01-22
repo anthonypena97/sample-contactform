@@ -21,12 +21,23 @@ function Contact() {
 
     // checks to make sure there are no empty fields
     if (
-      !formState.name === '' &&
-      !formState.email === '' &&
-      !formState.birthDate === '' &&
+      !formState.name === '' ||
+      !formState.email === '' ||
+      !formState.birthDate === '' ||
       !formState.emailConsent === false
     ) {
+      console.log('test')
       // if no empty fields, checks if all inputs are valid
+      if (
+        formState.name === '' ||
+        formState.email === '' ||
+        formState.birthDate === ''
+      ) {
+        setErrorMessage({ ...errorMessage, result: 'Unable to send. Empty Field.' });
+        return;
+
+      }
+
       if (
         errorMessage.name === '' &&
         errorMessage.email === '' &&
