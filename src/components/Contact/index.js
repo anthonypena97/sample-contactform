@@ -238,16 +238,15 @@ function Contact() {
         <Row >
           <Col style={{ 'padding': '1px' }}>
             <div className="checkboxInput">
-              <input className="checkBox" type="checkbox" name="emailConsent" value={emailConsent} checked={emailConsent} onChange={handleChange} onBlur={handleValidation} />
+              <input className="checkBox" type="checkbox" name="emailConsent" value={emailConsent} checked={emailConsent} onChange={handleChange} onClick={handleValidation} />
               <label className="checkBoxLabel"> I agree to be contacted via email</label>
             </div>
 
-            {
-              errorMessage && (
-                <div>
-                  <p className="errorCheck">{errorMessage.emailConsent}</p>
-                </div>
-              )
+            {errorMessage && (
+              <div>
+                <p className="errorCheck">{errorMessage.emailConsent}</p>
+              </div>
+            )
             }
           </Col>
 
