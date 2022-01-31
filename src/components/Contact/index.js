@@ -64,22 +64,6 @@ function Contact() {
 
   };
 
-  // function for updating values as user types
-  const handleChange = (e) => {
-    const field = e.target.name;
-
-    if (field === 'emailConsent') {
-
-      setFormState({ ...formState, [field]: e.target.checked })
-
-    } else {
-
-      setFormState({ ...formState, [field]: e.target.value })
-
-    }
-
-  }
-
   // function for validating name input
   const handleName = (e) => {
     const field = e.target.name;
@@ -130,6 +114,8 @@ function Contact() {
   const handleBirthdate = (e) => {
     const field = e.target.name;
 
+    setFormState({ ...formState, [field]: e.target.value });
+
     // birthDate validation
     if (field === 'birthDate') {
       const isValid = validateDate(e.target.value);
@@ -146,6 +132,8 @@ function Contact() {
   // function for validating email consent
   const handleEmailConsent = (e) => {
     const field = e.target.name;
+
+    setFormState({ ...formState, [field]: e.target.checked })
 
     // emailConsent validation
     if (field === 'emailConsent') {
@@ -258,7 +246,7 @@ function Contact() {
           <Col variant="input" className="contactInput" style={{ 'padding': '1px' }}>
 
             <label className="contactLabel" htmlFor="name">Birth Date:</label>
-            <input name="birthDate" rows="5" value={birthDate} onChange={handleChange} onBlur={handleBirthdate} autoComplete='off' />
+            <input name="birthDate" rows="5" value={birthDate} onChange={handleBirthdate} onBlur={handleBirthdate} autoComplete='off' />
 
           </Col>
 
@@ -279,7 +267,7 @@ function Contact() {
         <Row >
           <Col style={{ 'padding': '1px' }}>
             <div className="checkboxInput">
-              <input className="checkBox" type="checkbox" name="emailConsent" value={emailConsent} checked={emailConsent} onChange={handleChange} onClick={handleEmailConsent} />
+              <input className="checkBox" type="checkbox" name="emailConsent" value={emailConsent} checked={emailConsent} onChange={handleEmailConsent} onClick={handleEmailConsent} />
               <label className="checkBoxLabel"> I agree to be contacted via email</label>
             </div>
 
