@@ -6,11 +6,6 @@
   scrollbar-width: none;
 }
 
-/* :root {
-  touch-action: pan-x pan-y;
-  height: 100%;
-} */
-
 .disable-dbl-tap-zoom {
   touch-action: manipulation;
 }
@@ -100,9 +95,7 @@ code {
 
 .contactInput {
   display: flex;
-  /* background-color: yellow; */
   justify-content: end;
-  /* padding: 0; */
 }
 
 .contactLabel {
@@ -188,14 +181,10 @@ input {
 
   .contactInput {
     display: block;
-    /* background-color: yellow; */
-    /* justify-content: end; */
-    /* padding: 0; */
   }
 
   .errorMessage {
     font-size: 3vw;
-    /* padding-top: 40px; */
   }
 
   p:empty::after {
