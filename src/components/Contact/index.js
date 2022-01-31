@@ -15,7 +15,7 @@ function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    handleValidation(e);
+    // handleValidation(e);
 
     // checks to make sure there are no empty fields
     if (
@@ -80,9 +80,38 @@ function Contact() {
 
   }
 
-  // function for validating input fields
-  const handleValidation = (e) => {
+  // function for validating name input
+  const handleName = (e) => {
     const field = e.target.name;
+
+    setFormState({ ...formState, [field]: e.target.value })
+
+    // name validation
+    if (field === 'name') {
+
+      const isValid = e.target.value.length > 1;
+
+      if (!isValid) {
+
+        setErrorMessage({ ...errorMessage, [field]: 'Name cannot be blank.' });
+
+      } else {
+
+        setErrorMessage({ ...errorMessage, [field]: '' });
+        setFormState({ ...formState, [field]: e.target.value });
+
+      }
+
+    }
+
+  };
+
+  // function for validating email input
+  const handleEmail = (e) => {
+    const field = e.target.name;
+
+    setFormState({ ...formState, [field]: e.target.value });
+
     // email validation
     if (field === 'email') {
       const isValid = validateEmail(e.target.value);
@@ -90,10 +119,34 @@ function Contact() {
         setErrorMessage({ ...errorMessage, [field]: 'You must type a valid email.' });
       } else {
         setErrorMessage({ ...errorMessage, [field]: '' });
-        setFormState({ ...formState, [field]: e.target.value.trim() });
+        setFormState({ ...formState, [field]: e.target.value });
       }
 
     }
+
+  };
+
+  // function for validating birthdate input
+  const handleBirthdate = (e) => {
+    const field = e.target.name;
+
+    // birthDate validation
+    if (field === 'birthDate') {
+      const isValid = validateDate(e.target.value);
+      if (!isValid) {
+        setErrorMessage({ ...errorMessage, [field]: 'Follow yyyy-mm-dd format' });
+      } else {
+        setErrorMessage({ ...errorMessage, [field]: '' });
+        setFormState({ ...formState, [field]: e.target.value });
+      }
+    }
+
+  };
+
+  // function for validating email consent
+  const handleEmailConsent = (e) => {
+    const field = e.target.name;
+
     // emailConsent validation
     if (field === 'emailConsent') {
       const isValid = e.target.checked === true;
@@ -102,26 +155,6 @@ function Contact() {
       } else {
         setErrorMessage({ ...errorMessage, [field]: '' });
         setFormState({ ...formState, [field]: e.target.checked });
-      }
-    }
-    // name validation
-    if (field === 'name') {
-      const isValid = e.target.value.length > 1;
-      if (!isValid) {
-        setErrorMessage({ ...errorMessage, [field]: 'Name cannot be blank.' });
-      } else {
-        setErrorMessage({ ...errorMessage, [field]: '' });
-        setFormState({ ...formState, [field]: e.target.value.trim() });
-      }
-    }
-    // birthDate validation
-    if (field === 'birthDate') {
-      const isValid = validateDate(e.target.value);
-      if (!isValid) {
-        setErrorMessage({ ...errorMessage, [field]: 'Follow yyyy-mm-dd format' });
-      } else {
-        setErrorMessage({ ...errorMessage, [field]: '' });
-        setFormState({ ...formState, [field]: e.target.value.trim() });
       }
     }
 
@@ -137,20 +170,32 @@ function Contact() {
   }
 
   const postAPI = (data) => {
-    axios.post('https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/users', data)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+
+    console.log(data);
+
+    let dataTrimmed = {
+      name: data.name.trim(),
+      email: data.email.trim(),
+      emailConsent: data.emailConsent,
+      birthDate: data.birthDate.trim()
+    }
+
+    console.log(dataTrimmed);
+
+    // axios.post('https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/users', dataTrimmed)
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
 
   }
 
   // =========================================== html for component ============================================
   return (
 
-    <div id="contact-form" onSubmit={handleSubmit} className="contactForm" >
+    <div id="contact-form" onSubmit={handleSubmit} className="contactForm">
 
       {/* ======================== title ==================== */}
       <div>
@@ -166,7 +211,7 @@ function Contact() {
           <Col variant="input" className="contactInput" style={{ 'padding': '1px' }}>
 
             <label className="contactLabel" htmlFor="name">Name:</label>
-            <input type="text" name="name" value={name} onChange={handleChange} onBlur={handleValidation} />
+            <input type="text" name="name" value={name} onChange={handleName} onBlur={handleName} autoComplete='off' />
 
           </Col>
 
@@ -190,7 +235,7 @@ function Contact() {
           <Col variant="input" className="contactInput" style={{ 'padding': '1px' }}>
 
             <label className="contactLabel" htmlFor="name">Email:</label>
-            <input type="email" name="email" value={email} onChange={handleChange} onBlur={handleValidation} />
+            <input type="email" name="email" value={email} onChange={handleEmail} onBlur={handleEmail} autoComplete="off" />
 
           </Col>
 
@@ -213,7 +258,7 @@ function Contact() {
           <Col variant="input" className="contactInput" style={{ 'padding': '1px' }}>
 
             <label className="contactLabel" htmlFor="name">Birth Date:</label>
-            <input name="birthDate" rows="5" value={birthDate} onChange={handleChange} onBlur={handleValidation} />
+            <input name="birthDate" rows="5" value={birthDate} onChange={handleChange} onBlur={handleBirthdate} autoComplete='off' />
 
           </Col>
 
@@ -234,7 +279,7 @@ function Contact() {
         <Row >
           <Col style={{ 'padding': '1px' }}>
             <div className="checkboxInput">
-              <input className="checkBox" type="checkbox" name="emailConsent" value={emailConsent} checked={emailConsent} onChange={handleChange} onClick={handleValidation} />
+              <input className="checkBox" type="checkbox" name="emailConsent" value={emailConsent} checked={emailConsent} onChange={handleChange} onClick={handleEmailConsent} />
               <label className="checkBoxLabel"> I agree to be contacted via email</label>
             </div>
 
