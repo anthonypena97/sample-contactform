@@ -90,7 +90,7 @@ function Contact() {
         setErrorMessage({ ...errorMessage, [field]: 'You must type a valid email.' });
       } else {
         setErrorMessage({ ...errorMessage, [field]: '' });
-        setFormState({ ...formState, [field]: e.target.value });
+        setFormState({ ...formState, [field]: e.target.value.trim() });
       }
 
     }
@@ -111,7 +111,7 @@ function Contact() {
         setErrorMessage({ ...errorMessage, [field]: 'Name cannot be blank.' });
       } else {
         setErrorMessage({ ...errorMessage, [field]: '' });
-        setFormState({ ...formState, [field]: e.target.value });
+        setFormState({ ...formState, [field]: e.target.value.trim() });
       }
     }
     // birthDate validation
@@ -121,7 +121,7 @@ function Contact() {
         setErrorMessage({ ...errorMessage, [field]: 'Follow yyyy-mm-dd format' });
       } else {
         setErrorMessage({ ...errorMessage, [field]: '' });
-        setFormState({ ...formState, [field]: e.target.value });
+        setFormState({ ...formState, [field]: e.target.value.trim() });
       }
     }
 
