@@ -159,8 +159,6 @@ function Contact() {
 
   const postAPI = (data) => {
 
-    console.log(data);
-
     let dataTrimmed = {
       name: data.name.trim(),
       email: data.email.trim(),
@@ -199,7 +197,7 @@ function Contact() {
           <Col variant="input" className="contactInput" style={{ 'padding': '1px' }}>
 
             <label className="contactLabel" htmlFor="name">Name:</label>
-            <input type="text" name="name" value={name} onChange={handleName} onBlur={handleName} autoComplete='off' />
+            <input type="text" id="name" name="name" value={name} onChange={handleName} onBlur={handleName} autoComplete='off' />
 
           </Col>
 
@@ -222,8 +220,8 @@ function Contact() {
         <Row className="contactRow">
           <Col variant="input" className="contactInput" style={{ 'padding': '1px' }}>
 
-            <label className="contactLabel" htmlFor="name">Email:</label>
-            <input type="email" name="email" value={email} onChange={handleEmail} onBlur={handleEmail} autoComplete="off" />
+            <label className="contactLabel" htmlFor="email">Email:</label>
+            <input type="email" id="email" name="email" value={email} onChange={handleEmail} onBlur={handleEmail} autoComplete="off" />
 
           </Col>
 
@@ -245,8 +243,8 @@ function Contact() {
         <Row className="contactRow">
           <Col variant="input" className="contactInput" style={{ 'padding': '1px' }}>
 
-            <label className="contactLabel" htmlFor="name">Birth Date:</label>
-            <input name="birthDate" rows="5" value={birthDate} onChange={handleBirthdate} onBlur={handleBirthdate} autoComplete='off' />
+            <label className="contactLabel" htmlFor="birthDate">Birth Date:</label>
+            <input id="birthDate" name="birthDate" rows="5" value={birthDate} onChange={handleBirthdate} onBlur={handleBirthdate} autoComplete='off' />
 
           </Col>
 
@@ -267,8 +265,8 @@ function Contact() {
         <Row >
           <Col style={{ 'padding': '1px' }}>
             <div className="checkboxInput">
-              <input className="checkBox" type="checkbox" name="emailConsent" value={emailConsent} checked={emailConsent} onChange={handleEmailConsent} onClick={handleEmailConsent} />
-              <label className="checkBoxLabel"> I agree to be contacted via email</label>
+              <input className="checkBox" type="checkbox" id="emailConsent" name="emailConsent" value={emailConsent} checked={emailConsent} onChange={handleEmailConsent} onClick={handleEmailConsent} />
+              <label className="checkBoxLabel" htmlFor="emailConsent"> I agree to be contacted via email</label>
             </div>
 
             {errorMessage && (
